@@ -1,6 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  username: postgres
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
@@ -13,5 +14,3 @@ test:
 production:
   <<: *default
   database: wastrel_production
-  username: wastrel
-  password: <%= ENV['WASTREL_DATABASE_PASSWORD'] %>
