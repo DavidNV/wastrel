@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20180407021620) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "categories_id"
-    t.index ["categories_id"], name: "index_expenses_on_categories_id"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_expenses_on_category_id"
     t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
@@ -50,6 +50,6 @@ ActiveRecord::Schema.define(version: 20180407021620) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "expenses", "categories", column: "categories_id"
+  add_foreign_key "expenses", "categories"
   add_foreign_key "expenses", "users"
 end
