@@ -6,9 +6,11 @@ RSpec.describe Expense, type: :model do
     it "should belong to a user" do
       time = Time.now.freeze
       user_1 = User.create!(email: Faker::Internet.email, password: Faker::Internet.password(6))
-      expense_1 = Expense.new(amount: 30000, concept: "Uber", date: time, user: user_1)
+      puts "Hola, soy un #{described_class}"
+      expense_1 = described_class.new(amount: 30000, concept: "Uber", date: time, user: user_1)
 
       expect(expense_1.valid?).to eq(true)
+      puts expense_1.errors.messages.inspect
       expect(expense_1.save!).to eq(true)
       expect(Expense.count).to eq(1)
       expect(user_1.expenses).to eq([expense_1])
@@ -83,6 +85,8 @@ RSpec.describe Expense, type: :model do
         it "should save the expense" do
           time = Time.now.freeze
           @expense_1.date = time
+          category = FactoryBot.create(:category, name: "Hola")
+          category_2 = FactoryBot.create(:category)
           expect(@expense_1.valid?).to be_truthy
           expect(@expense_1.save).to be_truthy
           expect(@expense_1.date).to eq(time)
