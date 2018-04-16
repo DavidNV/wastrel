@@ -43,8 +43,10 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
+  gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'capybara-selenium'
+  gem 'chromedriver-helper'
 end
 
 group :development do
