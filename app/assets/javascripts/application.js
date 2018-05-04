@@ -12,4 +12,16 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery
+//= require jquery_ujs
 //= require_tree .
+//= require expenses
+
+$(document).ready(function() {
+  console.log("Hola");
+//  $(".a").on('click', function() {
+ //   var expensesDiv = $("#expenses");
+  //  expensesDiv.empty();
+  //  alert("aloha");
+//  })
+});

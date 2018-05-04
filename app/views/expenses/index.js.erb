@@ -1,0 +1,8 @@
+$(document).ready(function() {
+  console.log("Hola");
+  $(".a").on('click', function() {
+    var expensesDiv = $("#expenses");
+    expensesDiv.empty();
+    expensesDiv.append("<%=escape_javascript render "expenses_list", collection: @expenses %>")
+  })
+});

@@ -1,0 +1,8 @@
+<% @expenses.each do |expense| %>
+  <div class="row">
+    <p class="col s2"><%= expense.date.strftime("%d %a") %></p>
+    <p class="col s4"><%= expense.concept %></p>
+    <p class="col s3"><%= expense.category.name %></p>
+    <p class="col s3"><%= expense.amount %></p>
+  </div>
+<% end %>

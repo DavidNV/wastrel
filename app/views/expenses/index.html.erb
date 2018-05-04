@@ -1,0 +1,46 @@
+<h1>Expenses</h1>
+<div class="container">
+  <div class="row">
+    <div class="col s6">
+      <button class="transaction-type" id="purchase">Purchase</button>
+      <p class="transaction-type" id="withdrawal">Withdrawal</p>
+      <p class="transaction-type" id="transfer">Transfer</p>
+      <p class="transaction-type" id="payment">Payment</p>
+    </div>
+    <div class="col s6">
+      <p class="category" id="restaurants">Restaurants</p>
+      <p class="category" id="withdrawal">Grocery</p>
+      <p class="category" id="home">Home</p>
+    </div>
+  </div>
+  <div style="background-color: blue;">
+    <br>
+  </div>
+  <div class="row">
+    <p class="col s2">Dia</p>
+    <p class="col s4">Concepto</p>
+    <p class="col s3">Categoria</p>
+    <p class="col s3">Valor</p>
+  </div>
+  <div id="expenses">
+    <%= render "expenses_list" %>
+   </div>
+ </div>
+</div>
+<script>
+  $(document).ready(function() {
+    $(".transaction-type").on('click', function(e) {
+      var filter = this.id;
+      var param = {"transaction_type": filter };
+      e.preventDefault();
+      $.get("/expenses", param );
+      $("#expenses").html("<%= j render 'expenses_list' %>")
+    });
+    $(".category").on('click', function(e) {
+      e.preventDefault();
+      var filter = this.id;
+      $.get("/expenses", {"category": filter }); 
+      $("#expenses").html("<%= j render 'expenses_list' %>")
+    });
+  });
+</script>
