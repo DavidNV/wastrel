@@ -2,10 +2,9 @@
 <div class="container">
   <div class="row">
     <div class="col s6">
-      <button class="transaction-type" id="purchase">Purchase</button>
-      <p class="transaction-type" id="withdrawal">Withdrawal</p>
-      <p class="transaction-type" id="transfer">Transfer</p>
-      <p class="transaction-type" id="payment">Payment</p>
+      <% @transaction_types.each do |transaction_type| %>
+        <button class="transaction-type" id=<%=transaction_type.name %>> <%=transaction_type.name %></button>
+      <% end %>
     </div>
     <div class="col s6">
       <p class="category" id="restaurants">Restaurants</p>
@@ -19,28 +18,54 @@
   <div class="row">
     <p class="col s2">Dia</p>
     <p class="col s4">Concepto</p>
-    <p class="col s3">Categoria</p>
-    <p class="col s3">Valor</p>
+    <p class="col s2">Categoria</p>
+    <p class="col s2">Valor</p>
+    <p class="col s2">Transaction</p>
   </div>
   <div id="expenses">
-    <%= render "expenses_list" %>
+    <%= render partial: "expenses_list", locals: { cositas: @expenses } %>
    </div>
  </div>
 </div>
 <script>
   $(document).ready(function() {
     $(".transaction-type").on('click', function(e) {
-      var filter = this.id;
-      var param = {"transaction_type": filter };
-      e.preventDefault();
-      $.get("/expenses", param );
-      $("#expenses").html("<%= j render 'expenses_list' %>")
+      $(".active").removeClass("active");
+      var filter = this.id; //Html tag with the id info
+      var lina = $(this);
+      lina.addClass("active");
+
+      var param = {"transaction_type": filter }; //JSON that will be send
+      e.preventDefault();//Stop page reload
+      $.ajax({
+        type: "GET", //Http method
+        url: "/expenses.js", //Url to method
+        dataType: 'html',//Type of object that the request will return
+        data: param, //Data that will be sended within the request
+        success: function(response) { //Handle response from controller
+          $("#expenses").empty();
+          $("#expenses").html(response);
+        }
+      });
     });
     $(".category").on('click', function(e) {
-      e.preventDefault();
-      var filter = this.id;
-      $.get("/expenses", {"category": filter }); 
-      $("#expenses").html("<%= j render 'expenses_list' %>")
+      $(".active").removeClass("active");
+      var filter = this.id; //Html tag with the id info
+      var lina = $(this);
+      lina.addClass("active");
+
+      var param = {"category": filter }; //JSON that will be send
+      e.preventDefault();//Stop page reload
+      $.ajax({
+        type: "GET", //Http method
+        url: "/expenses.js", //Url to method
+        dataType: 'html',//Type of object that the request will return
+        data: param, //Data that will be sended within the request
+        success: function(response) { //Handle response from controller
+          $("#expenses").empty();
+          $("#expenses").html(response);
+        }
+      });
     });
   });
 </script>
